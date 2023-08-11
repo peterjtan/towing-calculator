@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 
-import WaterAreaReducer from './slices/waterAreaSlice';
+import TowedObjectWaterFrictionReducer from './slices/towedObjectWaterFrictionSlice';
 
 export const store = configureStore({
     reducer: {
-        waterArea: WaterAreaReducer,
+        towedObjectWaterFriction: TowedObjectWaterFrictionReducer
     },
 
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

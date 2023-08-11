@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
 
 // 计算湿表面积的数据
-export const waterAreaSlice = createSlice({
-    name: 'waterArea',
+export const slice = createSlice({
+    name: 'towedObjectWaterFriction',
 
     initialState: {
         type: '1',
@@ -13,11 +12,22 @@ export const waterAreaSlice = createSlice({
         delta: '', // 方形系数
         area: 0, // 湿表面积
 
+        f1Coefficient: '0.3',
+        speed: '',
+        towedObjectWaterFriction: 0,
+
         validation: {
+            // Water area fields
             vesselLength: false,
             vesselWidth: false,
             towingDraft: false,
-            delta: false
+            delta: false,
+            waterAreaFieldsValid: false,
+
+            // Total towed object water friction fields
+            speed: false,
+
+            allFieldsValid: false
         }
     },
 
@@ -25,17 +35,22 @@ export const waterAreaSlice = createSlice({
         setState: (state, action) => {
             let { name, value } = action.payload;
             state[name] = value;
-            
-            if (value !== '' && Number(value) >= 0) {
+
+            if (name in state.validation && value !== '' && Number(value) >= 0) {
                 state.validation[name] = true;
             } else {
                 state.validation[name] = false;
             }
 
-            // If all states are valid, calculate the area
+            // If all fields related to area calculation are valid, calculate the area
             // Reference: https://www.docin.com/p-190361967.html
 
-            if (Object.values(state.validation).every(x => x == true)) {
+            if (state.validation.vesselLength &&
+                state.validation.vesselWidth &&
+                state.validation.towingDraft &&
+                state.validation.delta) {
+
+                state.validation.waterAreaFieldsValid = true;
 
                 switch(state.type) {
                     case '1':
@@ -62,13 +77,20 @@ export const waterAreaSlice = createSlice({
                 }
 
             } else {
+                state.validation.waterAreaFieldsValid = false;
                 state.area = 0;
             }
 
-            useDispatch(setWaterArea(state.area));
+            if (state.validation.waterAreaFieldsValid && state.validation.speed) {
+                state.validation.allFieldsValid = true;
+                state.towedObjectWaterFriction = 1.3566 * state.area * state.f1Coefficient * Math.pow(state.speed, 2) * Math.pow(10, -4);
+            } else {
+                state.validation.allFieldsValid = false;
+                state.towedObjectWaterFriction = 0;
+            }
         }
     },
 });
 
-export const { setState } = waterAreaSlice.actions;
-export default waterAreaSlice.reducer;
+export const { setState } = slice.actions;
+export default slice.reducer;
