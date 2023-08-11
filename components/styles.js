@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'left',
     },
+
+    fab: {
+        position: 'fixed',
+        right: '3em',
+        bottom: '3em',
+    },
 });
 
 export default styles;

@@ -1,21 +1,25 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { View } from 'react-native';
-import { HelperText, RadioButton, Text, TextInput } from 'react-native-paper';
+import { FAB, HelperText, RadioButton, Text, TextInput } from 'react-native-paper';
 
 import { setState } from '../slices/towedObjectWaterFrictionSlice';
 import styles from './styles';
 
 
-export const Step1Component = () => {
+export const Step1Component = ({ navigation }) => {
     const validation = useSelector((state) => state.towedObjectWaterFriction.validation);
 
     return (
         <View style={styles.container}>
+            <Text variant="headlineMedium">第一步：被拖物对水的摩擦力</Text>
+
             <InputForWaterArea />
             {validation.waterAreaFieldsValid ? <WaterAreaCalculationResult /> : null}
 
             <InputForTotalWaterFriction />
             {validation.allFieldsValid ? <TotalWaterFrictionCalculationResult /> : null}
+
+            <FAB style={styles.fab} icon="arrow-right" onPress={() => navigation.navigate('Step2')} />
         </View>
     );
 }
@@ -27,8 +31,6 @@ const InputForWaterArea = () => {
 
     return (
         <View>
-            <Text variant="headlineMedium">第一步：被拖物对水的摩擦力</Text>
-
             <Text variant="headlineSmall">船舶类型</Text>
             <RadioButton.Group value={state.type}
                 onValueChange={ value => dispatch(setState({name: 'type', value: value})) }>
