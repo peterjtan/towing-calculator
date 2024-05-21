@@ -4,27 +4,27 @@
     "start": "expo start --dev-client"
   },
   "dependencies": {
-    "@expo/vector-icons": "^13.0.0",
-    "expo": "^49.0.6",
-    "expo-constants": "^14.2.1",
-    "expo-status-bar": "~1.6.0",
-    "react": "^18.2.0",
-    "react-native": "^0.72.3",
-    "react-native-paper": "^5.0",
-    "react-native-safe-area-context": "4.6.3",
-    "@react-navigation/native": "^6.0.6",
-    "@react-navigation/native-stack": "^6.2.5",
-    "react-redux": "^8.1.2",
-    "redux": "^4.2.1",
-    "@reduxjs/toolkit": "^1.9.5",
-    "@types/react": "~18.2.14",
-    "@types/react-dom": "~18.0.10"
+    "@expo/vector-icons": "x",
+    "expo": "x",
+    "expo-constants": "x",
+    "expo-status-bar": "x",
+    "react": "18.2.x",
+    "react-native": "x",
+    "react-native-paper": "5.x",
+    "react-native-safe-area-context": "4.x",
+    "@react-navigation/native": "6.x",
+    "@react-navigation/native-stack": "6.x",
+    "react-redux": "x",
+    "redux": "x",
+    "@reduxjs/toolkit": "x",
+    "@types/react": "18.2.x",
+    "@types/react-dom": "18.2.x"
   },
   "devDependencies": {
-    "expo-dev-client": "^2.4.6",
-    "react-native-web": "^0.19.6",
-    "react-dom": "^18.2.0",
-    "redux-logger": "^3.0.6"
+    "expo-dev-client": "x",
+    "react-native-web": "x",
+    "react-dom": "18.2.x",
+    "redux-logger": "x"
   },
   "private": true
 }
